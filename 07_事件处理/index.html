@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<!--
+			1.绑定监听
+			2.事件修饰符
+			3.按键修饰符
+		-->
+		<div id="demo">
+			<h2>1.绑定监听</h2>
+			<button @click="test1">test1</button>
+			<button @click="test2('abc')">test2</button>
+			<!--事件回调函数可以传一个$event表示事件对象（没有其他参数的情况下也可以不传，但是在函数方法中会有一个参数event表示事件对象）-->
+			<button @click="test3">test3</button>
+			<!--如果制定了参数，则必须要传$event，才能得到事件对象-->
+			<button @click="test4(123,$event)">test4</button>
+
+			<h2>2.事件修饰符</h2>
+			<div style="width: 300px;height: 300px;background: red;" @click="test5">
+				<div style="width: 200px;height: 200px;background: blue;" @click.stop="test6"></div>
+			</div>
+			<a href="http://www.baidu.com" @click.prevent="test7">点击</a>
+
+			<h2>3.按键修饰符</h2>
+			<!--b.修饰符为keyCode的值或名称，不过某些特别的按键是没有名称的-->
+			<input type="text" @keyup.13="test8" />
+			<input type="text" @keyup.enter="test8" />
+		</div>
+		<script type="text/javascript">
+			const vm = new Vue({
+				el: "#demo",
+				data: {},
+				methods: {
+					//1.绑定监听
+					test1() {
+						alert('test1')
+					},
+					test2(val) {
+						alert(val)
+					},
+					test3(event) { //不管传不传$event，事件函数都会有一个event参数表示事件对象
+						console.log(event.target) //event.target表示当前点击的对象
+					},
+					test4(num, event) { //如果传其他参数的情况下，则需要传事件对象的参数
+						console.log(num)
+						console.log(event.target) //event.target表示当前点击的对象
+					},
+					//2.事件修饰符
+					//阻止事件冒泡
+					test5() {
+						alert('out')
+					},
+					test6(event) {
+						//event.stopPropagation();w3c的方法是e.stopPropagation()，IE则是使用e.cancelBubble = true
+						alert('inner')
+					},
+					//阻止事件默认行为：a标签默认点击跳转
+					test7(event) {
+						//event.preventDefault();w3c的方法是e.preventDefault()，IE则是使用e.returnValue = false;
+						alert("test7")
+					},
+					//3.按键修饰符
+					test8(event) {
+						//a.可以直接判断
+						/*if(event.keyCode === 13) {
+							event.target.blur();
+						}*/
+						event.target.blur();
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>

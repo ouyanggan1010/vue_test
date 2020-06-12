@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<!--
+			1.条件渲染指令
+			  v-if 
+			  v-else-if
+			  v-else
+			  
+			  v-show
+			2.比较v-if与v-show
+			  v-if是直接将不显示的从内存中删除掉，将标签删除；
+			  v-show会将不显示的以display:none来隐藏
+			    如果需要频繁切换用v-show较好
+		-->
+		<div id="demo">
+			<p v-if="bool">成功</p>
+			<p v-else>失败</p>
+			<p v-show="bool">真</p>
+			<p v-show="!bool">假</p>
+			<button @click="bool=!bool">切换</button>
+		</div>
+		<script type="text/javascript">
+			const vm = new Vue({
+				el: "#demo",
+				data: {
+					bool: false
+				}
+			});
+		</script>
+	</body>
+
+</html>

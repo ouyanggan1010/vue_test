@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			[v-cloak]{
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--
+			内置指令：
+			  v-text：更新元素的textContent
+			  v-html：更新元素的innerHtml
+			  v-if：如果为true，当前标签才会输出到页面
+			  v-else：如果为false当前标签才会输出到页面
+			  v-show：通过控制display样式来控制显示/隐藏
+			  v-for：遍历数组/对象
+			  v-on：绑定监听事件，一边简写为@
+			  v-bind：强制绑定解析表达式，一边省略v-bind
+			  v-model：双向数据绑定
+			  ref：为某个元素指定一个唯一标识，vue对象通过$refs属性访问这个元素对象
+			  v-cloak：防止闪现，与css配合[v-cloak]{display:none}
+		-->
+		<div id="demo">
+			<!--ref-->
+			<p ref="cnt">你好呀！！！</p>
+			<button @click="getText">提示</button>
+			<p v-cloak>{{mesg}}</p>
+		</div>
+		<script type="text/javascript">
+			//指令会在实例加载完成后消失，也就是v-cloak会在加载完成消失，并没有隐藏的样式，保证在加载之前，vue的{{}}不出现
+			alert('---')
+			const vm = new Vue({
+				el: "#demo",
+				data: {
+                    mesg:"Hello world"
+				},
+				methods: {
+					getText() {
+						//this.$refs.cnt 等价于 getElementById("pText")
+						let p = this.$refs.cnt;
+						alert(p.textContent)
+						p.style.background="red";
+						console.log(p)
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>

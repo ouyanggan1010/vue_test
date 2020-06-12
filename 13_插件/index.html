@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="my-plugin.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<div id="demo">
+			<p v-my-directive='mesg'></p>
+		</div>
+		<script type="text/javascript">
+			//声明使用插件 内部会执行MyPlugin.install(Vue)，并传参
+			Vue.use(MyPlugin);
+			//函数对象的方法
+			Vue.myGlobalMethod();
+			const vm = new Vue({
+				el: "#demo",
+				data: {
+					mesg: 'fghGHDFG'
+				}
+			});
+			//实例对象的方法
+			vm.$method();
+		</script>
+	</body>
+
+</html>

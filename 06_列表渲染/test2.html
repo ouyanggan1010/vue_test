@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<!--
+			1.列表过滤
+			2.列表排序
+		-->
+		<div id="demo">
+			<input type="text" v-model="serchName" />
+			<ul>
+				<li v-for="(item,index) in filterPer" :key="index">
+					{{index}}---{{item.name}}---{{item.age}}
+				</li>
+			</ul>
+			<button @click="orderAge(1)">年龄升序</button>
+			<button @click="orderAge(2)">年龄降序</button>
+			<button @click="orderAge(0)">原本顺序</button>
+		</div>
+		<script type="text/javascript">
+			const vm = new Vue({
+				el: "#demo",
+				data: {
+					serchName: "",
+					type: 0, //0表示原本顺序，1表示升序，2表示降序
+					persons: [{
+						name: "Tom",
+						age: 18
+					}, {
+						name: "Jack",
+						age: 16
+					}, {
+						name: "Bob",
+						age: 19
+					}, {
+						name: "Rose",
+						age: 17
+					}]
+				},
+				computed: {
+					filterPer() {
+						const {
+							serchName,
+							persons,
+							type
+						} = this;
+						//过滤
+						let arry = persons.filter(item => {
+							return item.name.indexOf(serchName) >= 0;
+						});
+						//排序
+						arry.sort((a, b) => {
+							let val1 = a['age'];
+							let val2 = b['age'];
+							if(type == 2) {
+								return val1 - val2;
+							} else if(type == 1) {
+								return val2 - val1;
+							}
+						});
+						return arry;
+					}
+				},
+				methods: {
+					orderAge(i) {
+						this.type = i;
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>

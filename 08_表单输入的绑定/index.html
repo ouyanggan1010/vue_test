@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<!--
+			1.使用v-model（双向数据绑定）自动收集数据
+			text/textarea
+			checkbox
+			radio
+			select
+		-->
+		<div id="demo">
+			<form action="" @submit.prevent="submitInp">
+				<p>
+					<span>用户名：</span>
+					<input type="text" v-model="people.userName" />
+				</p>
+				<p>
+					<span>密码：</span>
+					<input type="text" v-model="people.passWord" />
+				</p>
+				<p>
+					<span>性别：</span>
+					<input type="radio" id="fenamel" value="女" v-model="people.sex" />
+					<label for="fenamel">女</label>
+					<input type="radio" id="male" value="男" v-model="people.sex" />
+					<label for="male">男</label>
+				</p>
+				<p>
+					<span>爱好：</span>
+					<div v-for="(item,index) in people.likes" :key="index">
+						<input type="checkbox" :id="item.id" :value="item.val" v-model="item.bool" />
+					    <label :for="item.id">{{item.val}}</label>
+					</div>
+					
+					
+					<!--<input type="checkbox" id="foot" value="足球" v-model="people.checks" />
+					<label for="foot">足球</label>
+					<input type="checkbox" id="pingpang" value="乒乓球" v-model="people.checks" />
+					<label for="pingpang">乒乓球</label>-->
+				</p>
+				<p>
+					<span>城市：</span>
+					<select v-model="people.city">
+						<option value="">未选择</option>
+						<option v-for="(item,index) in people.allCity" :key="index" :value="item.id">{{item.name}}</option>
+					</select>
+				</p>
+				<p>
+					<span>介绍：</span>
+					<textarea name="" rows="5" cols="30" v-model="people.intro"></textarea>
+				</p>
+				<input type="submit" value="注册" />
+			</form>
+		</div>
+		<script type="text/javascript">
+			const vm = new Vue({
+				el: "#demo",
+				data: {
+					people: {
+						userName: '',
+						passWord: '',
+						sex: '女',
+						checks:['乒乓球', '篮球'],
+						likes: [{
+							val:"篮球",
+							id:"basket",
+							bool:true
+						},{
+							val:"足球",
+							id:"foot",
+							bool:false
+						},{
+							val:"乒乓球",
+							id:"pingpang",
+							bool:true
+						}], //复选框是一个数组
+						intro: '大使馆的发挥是现代化',
+						allCity: [{
+							id: 'id_01',
+							name: '龙华区'
+						}, {
+							id: 'id_02',
+							name: '美兰区'
+						}, {
+							id: 'id_03',
+							name: '秀英区'
+						}],
+						city: 'id_02',
+					}
+				},
+				methods: {
+					//通过ajax请求将输入好的信息提交到后台
+					submitInp() {
+						console.log(this.people)
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>

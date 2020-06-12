@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.fade-enter-active,
+			.fade-leave-active {
+				transition: all 1s;
+				transform: rotateX(0deg);
+			}
+			
+			.fade-enter,
+			.fade-leave-to {
+				transform: rotateX(90deg);
+				opacity: 0;
+			}
+			/*如果宽度是100%会出现问题*/
+			.move-enter-active {
+				animation: bounce-in .5s;
+			}
+			
+			.move-leave-active {
+				animation: bounce-in .5s reverse;
+			}
+			
+			@keyframes bounce-in {
+				0% {
+					transform: scale(0);
+				}
+				50% {
+					transform: scale(1.5);
+				}
+				100% {
+					transform: scale(1);
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--
+			1.vue动画的理解：
+			    操作css的transitions和animation
+			  vue会给目标元素添加/移除特定的class
+			2.基本过渡动画的编码
+			  1).在目标元素外包裹<transition name="xxx"></transition>
+			  2).定义class样式
+			     a.指定过渡样式：transitions
+			     b.指定隐藏时的样式：opacity/其他
+			3.过渡的类名
+			enter:显示
+			  xxx-enter：定义进入过渡的开始状态
+			  xxx-enter-active：定义进入过渡生效时的状态
+			  xxx-enter-to: 定义进入过渡的结束状态
+			leave:隐藏
+			  xxx-leave：定义离开过渡的开始状态
+			  xxx-leave-active：定义离开过渡生效时的状态
+			  xxx-leave-to: 定义离开过渡的结束状态
+		-->
+		<div id="demo1">
+			<button @click="isShow=!isShow">toggle1</button>
+			<!--name属性值是自定义的-->
+			<transition name="fade">
+				<p style="background: red;width: 50px;height: 50px;" v-show="isShow">hello1</p>
+			</transition>
+			<transition name="fade">
+				<p style="background: red;width: 50px;height: 50px;" v-show="isShow">hello1</p>
+			</transition>
+			<transition name="fade">
+				<p style="background: red;width: 50px;height: 50px;" v-show="isShow">hello1</p>
+			</transition>
+		</div>
+		<div id="demo2">
+			<button @click="isShow=!isShow">toggle2</button>
+			<transition name="move">
+				<p style="background: red;width: 50px;height: 50px;" v-show="isShow">hello2</p>
+			</transition>
+		</div>
+	</body>
+	<script type="text/javascript">
+		const vm1 = new Vue({
+			el: "#demo1",
+			data() {
+				return {
+					isShow: true
+				}
+			}
+		});
+		const vm2 = new Vue({
+			el: "#demo2",
+			data() {
+				return {
+					isShow: true
+				}
+			}
+		});
+	</script>
+
+</html>
